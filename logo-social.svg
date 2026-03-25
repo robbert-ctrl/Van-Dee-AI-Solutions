@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Background: Deep Space Color -->
+  <rect width="200" height="200" fill="#050510"/>
+  
+  <defs>
+    <linearGradient id="grad-social" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f3ff" />
+      <stop offset="50%" stop-color="#bc13fe" />
+      <stop offset="100%" stop-color="#00f3ff" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Center the 100x100 coordinate system in the 200x200 box, scaled up 1.5x -->
+  <g transform="translate(50, 50) scale(1.0)">
+      <!-- Main V Shape -->
+      <path d="M25 20 L50 85 L75 20" stroke="url(#grad-social)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  </g>
+</svg>
