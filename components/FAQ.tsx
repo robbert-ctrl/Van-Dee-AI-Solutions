@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Plus, Minus, HelpCircle, ArrowRight } from 'lucide-react';
 import { Button } from './Button';
 import { Reveal } from './Reveal';
-import { LeadCaptureModal } from './LeadCaptureModal';
 import { FAQSchema } from './FAQSchema';
 
 const FAQItem: React.FC<{ question: string; answer: string; isOpen: boolean; toggle: () => void }> = ({ question, answer, isOpen, toggle }) => {
@@ -32,8 +31,6 @@ const FAQItem: React.FC<{ question: string; answer: string; isOpen: boolean; tog
 
 export const FAQ: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   const faqs = [
     {
       question: "Waarom zou ik met een nieuw bedrijf werken?",
@@ -130,24 +127,7 @@ export const FAQ: React.FC = () => {
           </div>
         </Reveal>
 
-        {/* Secondary Lead Magnet - merged from LeadMagnet.tsx */}
         <Reveal width="100%" delay={0.4}>
-          <div className="mt-16 max-w-2xl mx-auto glass-panel p-8 rounded-2xl border border-white/10">
-            <div className="text-center mb-6">
-              <h3 className="text-2xl font-bold text-white mb-2">Nog niet klaar voor een gesprek?</h3>
-              <p className="text-gray-400">Download onze gratis <strong>AI Readiness Checklist</strong> en schrijf je in voor onze e-maillijst met praktische AI-tips</p>
-            </div>
-
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="w-full bg-white text-black font-bold py-3 rounded-lg hover:bg-gray-200 transition-colors"
-            >
-              Stuur mij de Checklist
-            </button>
-          </div>
-        </Reveal>
-
-        <Reveal width="100%" delay={0.5}>
           <div className="flex justify-center mt-12">
               <a
                   href="https://cal.com/vandeeaisolutions/discoverycall"
@@ -162,12 +142,6 @@ export const FAQ: React.FC = () => {
         </Reveal>
       </div>
     </section>
-
-    <LeadCaptureModal
-      isOpen={isModalOpen}
-      onClose={() => setIsModalOpen(false)}
-      source="faq_page_lead_magnet"
-    />
   </>
   );
 };

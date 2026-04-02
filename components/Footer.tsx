@@ -1,37 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Linkedin, MapPin } from 'lucide-react';
 import { Logo } from './Logo';
 import { Reveal } from './Reveal';
-import { LeadCaptureModal } from './LeadCaptureModal';
 
 export const Footer: React.FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   return (
-    <>
       <footer className="bg-black border-t border-white/10 pt-12 pb-8">
         <div className="container mx-auto px-6">
-          {/* Email Signup Section */}
-          <Reveal width="100%">
-            <div className="max-w-2xl mx-auto mb-12 text-center">
-              <h3 className="text-2xl font-bold text-white mb-2">Wekelijkse AI-tips voor MKB</h3>
-              <p className="text-gray-400 mb-6 text-sm">
-                Elke maandag: 1 praktische AI-tip die u direct kunt toepassen. Geen sales, wel waarde.
-              </p>
-
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="px-8 py-3 bg-neon-cyan text-black font-bold rounded-lg hover:bg-cyan-300 transition-colors"
-              >
-                Aanmelden voor Tips
-              </button>
-
-              <p className="text-xs text-gray-500 mt-3">
-                Tips zoals: ChatGPT gebruiken voor emailsjablonen • 3 gratis tools voor workflow automatisering
-              </p>
-            </div>
-          </Reveal>
-
           <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
 
               <Reveal>
@@ -79,12 +54,5 @@ export const Footer: React.FC = () => {
           </Reveal>
         </div>
       </footer>
-
-      <LeadCaptureModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        source="footer_newsletter"
-      />
-    </>
   );
 };

@@ -68,7 +68,7 @@ export const About: React.FC = () => {
                 
                 <div className="absolute inset-2 bg-gradient-to-br from-gray-900 to-black rounded-xl overflow-hidden shadow-2xl flex items-center justify-center border border-white/10 group">
                     <img
-                      src="/robbert.jpg"
+                      src="/overons.jpg"
                       alt="Robbert van Dee, Founder & AI Architect bij Van Dee AI Solutions - Expert in AI Automatisering en Workflow Optimalisatie"
                       className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
                       loading="lazy"
