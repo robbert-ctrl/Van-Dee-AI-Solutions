@@ -5,32 +5,27 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   glow?: boolean;
 }
 
-export const Button: React.FC<ButtonProps> = ({ 
-  children, 
-  variant = 'primary', 
-  glow = false, 
-  className = '', 
-  ...props 
+export const Button: React.FC<ButtonProps> = ({
+  children,
+  variant = 'primary',
+  glow = false,
+  className = '',
+  ...props
 }) => {
-  const baseStyles = "px-6 py-3 rounded-full font-semibold transition-all duration-300 relative overflow-hidden group";
-  
+  const baseStyles = "px-6 py-3 rounded-xl font-semibold transition-all duration-200 inline-flex items-center justify-center gap-2";
+
   const variants = {
-    primary: "bg-gradient-to-r from-neon-cyan to-blue-600 text-black hover:scale-105",
-    secondary: "bg-white text-black hover:bg-gray-200",
-    outline: "border border-neon-cyan text-neon-cyan hover:bg-neon-cyan/10"
+    primary: "bg-brand-600 text-white hover:bg-brand-700 shadow-lg shadow-brand-600/25 hover:shadow-xl",
+    secondary: "bg-white text-slate-800 border border-gray-200 hover:border-gray-300 hover:bg-gray-50",
+    outline: "border border-brand-600 text-brand-600 hover:bg-brand-50"
   };
 
-  const glowEffect = glow ? "shadow-[0_0_20px_rgba(0,243,255,0.5)] hover:shadow-[0_0_30px_rgba(0,243,255,0.8)]" : "";
-
   return (
-    <button 
-      className={`${baseStyles} ${variants[variant]} ${glowEffect} ${className}`} 
+    <button
+      className={`${baseStyles} ${variants[variant]} ${className}`}
       {...props}
     >
-      <span className="relative z-10 flex items-center justify-center gap-2">{children}</span>
-      {variant === 'primary' && (
-        <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 backdrop-blur-sm" />
-      )}
+      {children}
     </button>
   );
 };

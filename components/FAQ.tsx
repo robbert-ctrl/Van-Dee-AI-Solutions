@@ -1,27 +1,28 @@
 import React, { useState } from 'react';
 import { Plus, Minus, HelpCircle, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from './Button';
 import { Reveal } from './Reveal';
 import { FAQSchema } from './FAQSchema';
 
 const FAQItem: React.FC<{ question: string; answer: string; isOpen: boolean; toggle: () => void }> = ({ question, answer, isOpen, toggle }) => {
   return (
-    <div className={`border-b border-white/10 last:border-0 transition-colors duration-300 ${isOpen ? 'bg-white/5' : 'hover:bg-white/5'}`}>
+    <div className={`border-b border-gray-100 last:border-0 transition-colors duration-300 ${isOpen ? 'bg-brand-50' : 'hover:bg-gray-50'}`}>
       <button
         onClick={toggle}
         className="w-full flex items-center justify-between p-4 sm:p-6 text-left focus:outline-none group gap-4"
       >
-        <span className={`text-base sm:text-lg font-medium transition-colors duration-300 ${isOpen ? 'text-neon-cyan' : 'text-white group-hover:text-gray-200'}`}>
+        <span className={`text-base sm:text-lg font-medium transition-colors duration-300 ${isOpen ? 'text-brand-600' : 'text-slate-800 group-hover:text-slate-600'}`}>
           {question}
         </span>
-        <div className={`p-2 rounded-full border border-white/10 transition-all duration-300 shrink-0 ${isOpen ? 'bg-neon-cyan/20 border-neon-cyan text-neon-cyan rotate-180' : 'text-gray-400 group-hover:text-white'}`}>
+        <div className={`p-2 rounded-full border transition-all duration-300 shrink-0 ${isOpen ? 'bg-brand-50 border-brand-200 text-brand-600 rotate-180' : 'border-gray-200 text-slate-400 group-hover:text-slate-600'}`}>
            {isOpen ? <Minus size={18} /> : <Plus size={18} />}
         </div>
       </button>
-      <div 
+      <div
         className={`overflow-hidden transition-[max-height,opacity] duration-500 ease-in-out ${isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}
       >
-        <div className="p-6 pt-0 text-gray-400 leading-relaxed">
+        <div className="p-6 pt-0 text-slate-500 leading-relaxed">
           {answer}
         </div>
       </div>
@@ -87,6 +88,10 @@ export const FAQ: React.FC = () => {
     {
       question: "Hoe bepalen we of de automatisering werkt?",
       answer: "In de gratis analyse bepalen we samen concrete doelen: bijvoorbeeld '10 uur per week besparen op facturatie' of '50% minder handmatige data-invoer'. Die doelen worden schriftelijk vastgelegd. Na implementatie meten we of we die doelen halen. Simpel en transparant."
+    },
+    {
+      question: "Werken jullie ook lokaal in Tiel en Gelderland?",
+      answer: "Ja, Van Dee AI Solutions is gevestigd in Tiel en wij bedienen MKB-bedrijven in heel Gelderland — met name in de regio Betuwe en Rivierenland (Culemborg, Geldermalsen, Zaltbommel, Buren). Lokaal werken betekent korte lijnen, persoonlijk contact, en vaak een fysieke kick-off meeting. Zie onze pagina over AI automatisering in Tiel voor meer details."
     }
   ];
 
@@ -95,40 +100,36 @@ export const FAQ: React.FC = () => {
       {/* Add FAQ Schema for SEO */}
       <FAQSchema faqs={faqs} />
 
-      <section id="faq" className="py-24 relative bg-deep-space">
-        {/* Decorative elements */}
-        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-neon-purple/5 rounded-full blur-[100px] pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-neon-cyan/5 rounded-full blur-[100px] pointer-events-none" />
-
+      <section id="faq" className="py-24 relative bg-white">
       <div className="container mx-auto px-6 max-w-4xl relative z-10">
         <div className="text-center mb-16">
           <Reveal width="100%">
-            <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/5 mb-6 border border-white/10">
-                <HelpCircle className="text-neon-purple" size={24} />
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-violet-50 mb-6 border border-violet-200">
+                <HelpCircle className="text-violet-600" size={24} />
             </div>
-            <h2 className="text-3xl md:text-5xl font-display font-bold mb-6">Veelgestelde <span className="text-neon-cyan">Vragen</span></h2>
-            <p className="text-gray-400">
+            <h1 className="text-3xl md:text-5xl font-bold mb-6">Veelgestelde <span className="text-brand-600">Vragen</span> over AI Automatisering</h1>
+            <p className="text-slate-500">
               Transparante antwoorden over veiligheid, ROI en integratie.
             </p>
           </Reveal>
         </div>
 
         <Reveal width="100%" delay={0.2}>
-          <div className="glass-panel rounded-2xl border border-white/10 overflow-hidden mb-12 shadow-2xl">
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden mb-12">
             {faqs.map((faq, index) => (
               <FAQItem
-                key={faq.question} 
-                question={faq.question} 
-                answer={faq.answer} 
-                isOpen={openIndex === index} 
-                toggle={() => setOpenIndex(openIndex === index ? null : index)} 
+                key={faq.question}
+                question={faq.question}
+                answer={faq.answer}
+                isOpen={openIndex === index}
+                toggle={() => setOpenIndex(openIndex === index ? null : index)}
               />
             ))}
           </div>
         </Reveal>
 
         <Reveal width="100%" delay={0.4}>
-          <div className="flex justify-center mt-12">
+          <div className="flex flex-col items-center gap-4 mt-12">
               <a
                   href="https://cal.com/vandeeaisolutions/discoverycall"
                   target="_blank"
@@ -138,6 +139,20 @@ export const FAQ: React.FC = () => {
                       Boek Verkenningsgesprek <ArrowRight className="group-hover:translate-x-1 transition-transform ml-2" size={20} />
                   </Button>
               </a>
+              <div className="flex flex-wrap justify-center gap-6 text-sm">
+                <Link
+                  to="/ai-scan"
+                  className="text-brand-600 hover:text-brand-700 font-medium transition-colors inline-flex items-center gap-1"
+                >
+                  Of doe eerst de gratis AI Scan <ArrowRight size={14} />
+                </Link>
+                <Link
+                  to="/how-it-works"
+                  className="text-slate-500 hover:text-brand-600 font-medium transition-colors inline-flex items-center gap-1"
+                >
+                  Bekijk ons proces <ArrowRight size={14} />
+                </Link>
+              </div>
           </div>
         </Reveal>
       </div>

@@ -11,32 +11,38 @@ export const Reveal: React.FC<RevealProps> = ({ children, width = 'fit-content',
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    // Check if element is already in viewport on mount
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      setIsVisible(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.disconnect(); // Only animate once
+          observer.disconnect();
         }
       },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+      { threshold: 0.05, rootMargin: '0px 0px 0px 0px' }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
+    observer.observe(el);
 
-    return () => {
-      if (ref.current) observer.unobserve(ref.current);
-    };
+    return () => observer.unobserve(el);
   }, []);
 
   return (
     <div ref={ref} style={{ position: 'relative', width, overflow: 'visible' }}>
       <div
         style={{
-          transform: isVisible ? 'translateY(0)' : 'translateY(75px)',
+          transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
           opacity: isVisible ? 1 : 0,
-          transition: `all 0.8s cubic-bezier(0.17, 0.55, 0.55, 1) ${delay}s`,
+          transition: `all 0.5s cubic-bezier(0.17, 0.55, 0.55, 1) ${delay}s`,
         }}
       >
         {children}

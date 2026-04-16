@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 128" width="520" height="128">
+  <!-- Mark -->
+  <rect x="0" y="16" width="96" height="96" rx="18" fill="#0F172A"/>
+  <text x="48" y="64"
+        font-family="'Fraunces', Georgia, serif"
+        font-size="48"
+        font-weight="700"
+        fill="#FAFAF7"
+        text-anchor="middle"
+        dominant-baseline="central"
+        letter-spacing="-1.5">vd</text>
+
+  <!-- Wordmark: Van Dee -->
+  <text x="120" y="56"
+        font-family="'Fraunces', Georgia, serif"
+        font-size="32"
+        font-weight="600"
+        fill="#0F172A"
+        letter-spacing="-0.5">Van Dee</text>
+
+  <!-- Sub: AI Solutions -->
+  <text x="120" y="86"
+        font-family="'DM Sans', system-ui, sans-serif"
+        font-size="18"
+        font-weight="500"
+        fill="#64748B"
+        letter-spacing="0.2">AI Solutions</text>
+</svg>

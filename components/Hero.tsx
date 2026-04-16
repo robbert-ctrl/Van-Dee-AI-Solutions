@@ -1,126 +1,162 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar } from 'lucide-react';
-import { Button } from './Button';
-import { ParticleBackground } from './ParticleBackground';
+import { ArrowRight, CheckCircle, Clock, Euro } from 'lucide-react';
 import { Reveal } from './Reveal';
 import { CalPopupButton } from './CalPopupButton';
+import { useDelayedPulse } from '../hooks/useDelayedPulse';
 
-export const Hero: React.FC = () => {
-  const [text, setText] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [loopNum, setLoopNum] = useState(0);
-  const [typingSpeed, setTypingSpeed] = useState(150);
+// Loss counter: 20 uur/week ÷ 5 dagen ÷ 8 uur ÷ 3600 sec × €45/uur = ~€0.3125/sec
+const WASTE_PER_SECOND = (20 / 5 / 8 / 3600) * 45;
 
-  const words = ["de Kracht van AI", "Snelheid", "Meer Efficiëntie", "Tijdwinst", "Innovatie"];
+const Hero: React.FC = () => {
+  const [wastedAmount, setWastedAmount] = useState(0);
+  const { ref: pulseRef, shouldPulse } = useDelayedPulse(3000);
 
   useEffect(() => {
-    const handleType = () => {
-      const i = loopNum % words.length;
-      const fullText = words[i];
+    const start = Date.now();
+    const interval = setInterval(() => {
+      const elapsed = (Date.now() - start) / 1000;
+      setWastedAmount(elapsed * WASTE_PER_SECOND);
+    }, 100);
+    return () => clearInterval(interval);
+  }, []);
 
-      setText(isDeleting
-        ? fullText.substring(0, text.length - 1)
-        : fullText.substring(0, text.length + 1)
-      );
-
-      setTypingSpeed(isDeleting ? 30 : 150);
-
-      if (!isDeleting && text === fullText) {
-        setTimeout(() => setIsDeleting(true), 2000);
-      } else if (isDeleting && text === '') {
-        setIsDeleting(false);
-        setLoopNum(loopNum + 1);
-      }
-    };
-
-    const timer = setTimeout(handleType, typingSpeed);
-    return () => clearTimeout(timer);
-  }, [text, isDeleting, loopNum, typingSpeed, words]);
+  const handleScrollToCalculator = () => {
+    const section = document.getElementById('roi-calculator');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 bg-[#050510]">
-        <ParticleBackground />
-        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-neon-purple/20 rounded-full blur-[120px] animate-pulse-slow pointer-events-none" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-neon-cyan/10 rounded-full blur-[120px] animate-pulse-slow pointer-events-none" style={{ animationDelay: '2s' }} />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_0%,#050510_100%)] pointer-events-none" />
-      </div>
+    <section id="hero-section" className="bg-white min-h-screen pt-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left column: Copy */}
+          <div>
+            <Reveal width="100%">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-display text-slate-800 leading-tight tracking-tight">
+                Uw team verspilt{' '}
+                <span className="text-loss-600">20+ uur per week</span>{' '}
+                aan werk dat een computer in 20 minuten doet.
+              </h1>
+            </Reveal>
 
-      <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
-        {/* Content */}
-        <div className="space-y-8">
-          <Reveal>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-neon-cyan text-xs font-medium tracking-wider uppercase mb-6">
-              <span className="w-2 h-2 rounded-full bg-neon-cyan animate-pulse"></span>
-              Early Adopter Programma
-            </div>
-          </Reveal>
+            <Reveal width="100%" delay={0.1}>
+              <p className="mt-6 text-lg sm:text-xl text-slate-500 leading-relaxed max-w-xl">
+                Ontdek in 30 minuten gratis welke processen u morgen al kunt automatiseren.
+              </p>
+            </Reveal>
 
-          <Reveal delay={0.1}>
-            <h1 className="text-3xl sm:text-5xl md:text-7xl font-display font-bold leading-snug">
-              Ontgrendel <br />
-              <span className="inline-block min-h-[40px] sm:h-[56px] md:h-[80px] sm:whitespace-nowrap mt-2">
-                <span className="gradient-text">{text}</span>
-                <span className="w-1 h-8 sm:h-12 md:h-16 ml-1 sm:ml-2 inline-block bg-neon-cyan animate-cursor-blink align-middle"></span>
-              </span>
-              <br />
-              in uw Bedrijf
-            </h1>
-          </Reveal>
+            <Reveal width="100%" delay={0.2}>
+              <div className="mt-8 flex flex-col sm:flex-row gap-4">
+                <div ref={pulseRef}>
+                  <button
+                    onClick={handleScrollToCalculator}
+                    className={`btn-primary inline-flex items-center justify-center gap-2 bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl text-lg hover:bg-brand-700 transition-colors ${shouldPulse ? 'animate-cta-pulse' : ''}`}
+                  >
+                    Bereken Uw Besparing
+                    <ArrowRight className="w-5 h-5" />
+                  </button>
+                </div>
 
-          <Reveal delay={0.2}>
-            <p className="text-gray-400 text-lg md:text-xl max-w-lg leading-relaxed">
-              Gratis technische analyse van uw processen. Binnen 30 minuten weet u wat mogelijk is.
-            </p>
-          </Reveal>
-
-          <Reveal delay={0.3}>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <CalPopupButton
-                calLink="vandeeaisolutions/discoverycall"
-                className="bg-white text-black font-bold px-6 sm:px-8 py-4 rounded-lg hover:bg-gray-200 transition-all duration-300 shadow-[0_0_30px_rgba(0,243,255,0.3)] hover:shadow-[0_0_50px_rgba(0,243,255,0.5)] flex items-center justify-center text-base sm:text-lg"
-              >
-                <Calendar className="mr-2 shrink-0" size={20} />
-                Boek Gratis Verkenningsgesprek
-              </CalPopupButton>
-            </div>
-            <div className="mt-4 text-xs sm:text-sm text-gray-400 space-y-1">
-              <p>✓ Geen verplichtingen  ✓ Ook interessant als u niet met mij werkt</p>
-              <p>✓ 30 minuten, online</p>
-            </div>
-          </Reveal>
-        </div>
-
-        {/* Abstract Visual */}
-        <div className="hidden md:block relative">
-            <div className="relative w-full aspect-square max-w-lg mx-auto animate-[float_6s_ease-in-out_infinite]">
-              {/* Center Circle */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-neon-purple to-neon-cyan rounded-full opacity-20 blur-3xl animate-pulse" />
-
-              <div className="absolute inset-4 glass-panel rounded-2xl flex items-center justify-center transform rotate-3 hover:rotate-0 transition-all duration-700">
-                 <div className="text-center space-y-4 p-8">
-                    <div className="flex justify-center gap-4 mb-8">
-                      {[1,2,3].map(i => (
-                          <div key={i} className="w-12 h-12 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center animate-bounce" style={{ animationDelay: `${i * 0.2}s` }}>
-                              <div className="w-6 h-6 bg-gradient-to-tr from-neon-cyan to-blue-500 rounded-md" />
-                          </div>
-                      ))}
-                    </div>
-                    <h3 className="text-2xl font-bold text-white">Workflow Automatisering</h3>
-                    <p className="text-sm text-gray-400">AI-agenten werken 24/7 voor u.</p>
-                    <div className="w-full h-1 bg-gray-800 rounded-full overflow-hidden mt-4">
-                        <div className="h-full bg-neon-cyan w-2/3 animate-[width_2s_ease-in-out_infinite]" />
-                    </div>
-                    <div className="flex justify-between text-xs text-gray-500 mt-1">
-                        <span>Processing...</span>
-                        <span>87%</span>
-                    </div>
-                 </div>
+                <CalPopupButton
+                  calLink="vandeeaisolutions/discoverycall"
+                  className="btn-cta inline-flex items-center justify-center gap-2 border-2 border-brand-600 text-brand-600 font-semibold px-8 py-4 rounded-xl text-lg hover:bg-brand-50 transition-colors"
+                >
+                  Plan Gratis Gesprek
+                </CalPopupButton>
               </div>
-            </div>
+            </Reveal>
+
+            {/* Trust bar */}
+            <Reveal width="100%" delay={0.3}>
+              <div className="mt-10 flex flex-col sm:flex-row gap-4 sm:gap-6">
+                {[
+                  'Geen verplichtingen',
+                  '30 min, online',
+                  'Gratis analyserapport',
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-2 text-slate-500">
+                    <CheckCircle className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                    <span className="text-sm font-medium">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+
+            {/* Realtime loss counter */}
+            <Reveal width="100%" delay={0.4}>
+              <div className="mt-6 bg-loss-600/5 border border-loss-600/20 rounded-lg px-4 py-3 max-w-md">
+                <p className="text-sm text-slate-600 flex items-center gap-2">
+                  Sinds u deze pagina opende:
+                  <span className="text-loss-600 font-bold text-lg" style={{ fontVariantNumeric: 'tabular-nums' }}>
+                    <Euro size={14} className="inline -mt-0.5" />
+                    {wastedAmount.toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  </span>
+                  <span className="text-slate-500">verspild</span>
+                </p>
+                <p className="text-xs text-slate-400 mt-1">
+                  *Gemiddeld MKB: 20 uur/week &times; &euro;45/uur aan handmatig werk
+                </p>
+              </div>
+            </Reveal>
+          </div>
+
+          {/* Right column: Before/After visual (hidden on mobile) */}
+          <div className="hidden lg:block">
+            <Reveal width="100%" delay={0.2}>
+              <div className="bg-surface-50 rounded-2xl border border-gray-100 shadow-sm p-8">
+                <p className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-6">
+                  Tijdvergelijking per week
+                </p>
+
+                {/* Before */}
+                <div className="mb-8">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <Clock className="w-5 h-5 text-loss-600" />
+                      <span className="font-semibold text-slate-800">Handmatig</span>
+                    </div>
+                    <span className="text-loss-600 font-bold text-lg">20 uur/week</span>
+                  </div>
+                  <div className="w-full bg-gray-100 rounded-full h-4">
+                    <div
+                      className="bg-loss-600 h-4 rounded-full transition-all duration-1000"
+                      style={{ width: '100%' }}
+                    />
+                  </div>
+                </div>
+
+                {/* After */}
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <Clock className="w-5 h-5 text-emerald-600" />
+                      <span className="font-semibold text-slate-800">Geautomatiseerd</span>
+                    </div>
+                    <span className="text-emerald-600 font-bold text-lg">2 uur/week</span>
+                  </div>
+                  <div className="w-full bg-gray-100 rounded-full h-4">
+                    <div
+                      className="bg-emerald-600 h-4 rounded-full transition-all duration-1000"
+                      style={{ width: '10%' }}
+                    />
+                  </div>
+                </div>
+
+                {/* Savings callout */}
+                <div className="mt-8 pt-6 border-t border-gray-100 text-center">
+                  <p className="text-slate-500 text-sm">Uw besparing</p>
+                  <p className="text-3xl font-bold text-emerald-600 mt-1">18 uur/week</p>
+                  <p className="text-slate-500 text-sm mt-1">terug voor werk dat ertoe doet</p>
+                </div>
+              </div>
+            </Reveal>
+          </div>
         </div>
       </div>
     </section>
   );
 };
+
+export { Hero };

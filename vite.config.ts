@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   server: {
-    port: 3000,
+    port: parseInt(process.env.PORT || '3001'),
     host: '0.0.0.0',
     proxy: {
       // Proxy API requests to local serverless function emulator or backend

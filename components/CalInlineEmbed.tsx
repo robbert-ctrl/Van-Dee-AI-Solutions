@@ -19,7 +19,7 @@ export const CalInlineEmbed: React.FC<CalInlineEmbedProps> = ({
   const [hasError, setHasError] = useState(false);
 
   // Use shared Cal.com configuration hook
-  useCalConfig(config.theme || 'dark');
+  useCalConfig((config.theme || 'light') as 'light' | 'dark' | 'auto');
 
   useEffect(() => {
     (async function () {
@@ -31,8 +31,8 @@ export const CalInlineEmbed: React.FC<CalInlineEmbedProps> = ({
           elementOrSelector: "#cal-inline-embed",
           calLink: calLink,
           config: {
-            layout: config.layout || "month_view",
-            theme: config.theme || "dark"
+            layout: (config.layout || "month_view") as any,
+            theme: (config.theme || "light") as any
           }
         });
 

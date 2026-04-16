@@ -1,0 +1,247 @@
+@import "tailwindcss";
+
+/* ────────────────────────────────────────────────
+   VAN DEE AI SOLUTIONS — FUNNEL DESIGN SYSTEM
+   Color: Orange CTA + Navy anchor
+   Type:  Fraunces (display) + DM Sans (body)
+   ──────────────────────────────────────────────── */
+
+@theme {
+  /* ─── PRIMARY (CTA only) ─── */
+  --color-primary-50:  #FFF7ED;
+  --color-primary-100: #FFEDD5;
+  --color-primary-200: #FED7AA;
+  --color-primary-300: #FDBA74;
+  --color-primary-400: #FB923C;
+  --color-primary-500: #F97316;
+  --color-primary-600: #EA580C;
+  --color-primary-700: #C2410C;
+  --color-primary-800: #9A3412;
+  --color-primary-900: #7C2D12;
+
+  /* ─── FOUNDATION ─── */
+  --color-navy-800: #1E293B;
+  --color-navy-900: #0F172A;
+  --color-navy-950: #020617;
+
+  --color-ink-500: #475569;
+  --color-ink-400: #64748B;
+  --color-ink-300: #94A3B8;
+
+  /* ─── SURFACE ─── */
+  --color-cream:     #FAFAF7;
+  --color-cream-100: #F5F5EE;
+  --color-line:      #E2E8F0;
+  --color-line-strong: #CBD5E1;
+
+  /* ─── ACCENTS (sparingly) ─── */
+  --color-emerald-600: #059669;
+  --color-emerald-50:  #ECFDF5;
+
+  /* ─── LEGACY ALIASES (keep existing components working) ─── */
+  --color-brand-50:  #FFF7ED;
+  --color-brand-100: #FFEDD5;
+  --color-brand-200: #FED7AA;
+  --color-brand-300: #FDBA74;
+  --color-brand-400: #FB923C;
+  --color-brand-500: #F97316;
+  --color-brand-600: #EA580C;
+  --color-brand-700: #C2410C;
+  --color-brand-800: #9A3412;
+  --color-brand-900: #7C2D12;
+
+  --color-surface-50:  #FAFAF7;
+  --color-surface-100: #F5F5EE;
+  --color-surface-200: #E2E8F0;
+
+  --color-loss-500: #EF4444;
+  --color-loss-600: #DC2626;
+  --color-emerald-500: #10B981;
+
+  /* ─── FONTS ─── */
+  --font-sans:    "DM Sans", system-ui, -apple-system, sans-serif;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+
+  /* ─── ANIMATIONS ─── */
+  --animate-fade-in:     fadeIn 0.5s ease-out;
+  --animate-fade-in-up:  fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  --animate-slide-up:    slideUp 0.3s ease-out;
+  --animate-cta-pulse:   ctaPulse 2.4s ease-in-out infinite;
+  --animate-pulse-subtle: pulseSubtle 3s ease-in-out infinite;
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideUp {
+    from { transform: translateY(10px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+  }
+  @keyframes pulseSubtle {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.02); }
+  }
+  @keyframes floatIn {
+    from { transform: translateY(100%); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+  }
+  @keyframes ctaPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(234, 88, 12, 0.5); }
+    50%      { box-shadow: 0 0 0 10px rgba(234, 88, 12, 0); }
+  }
+
+  --animate-float-in: floatIn 0.4s ease-out forwards;
+}
+
+/* ─── FONT IMPORTS ─── */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=DM+Sans:opsz,wght@9..40,400..700&display=swap');
+
+/* ─── BASE ─── */
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background-color: #FAFAF7;
+  color: #0F172A;
+  font-family: "DM Sans", system-ui, -apple-system, sans-serif;
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+h1, h2, h3, h4, h5 {
+  font-family: "Fraunces", Georgia, serif;
+  font-variation-settings: "opsz" 144, "SOFT" 30;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: #0F172A;
+}
+p { line-height: 1.6; }
+
+::selection {
+  background: #EA580C;
+  color: #FFFFFF;
+}
+
+/* Focus state */
+:focus-visible {
+  outline: 2px solid #EA580C;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── UTILITIES ─── */
+.section-padding {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+}
+
+.container-funnel {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+@media (min-width: 768px) {
+  .container-funnel { padding-inline: 3rem; }
+}
+
+.prose-funnel { max-width: 680px; }
+
+/* Gradient text (only used sparingly in hero) */
+.gradient-text {
+  background: linear-gradient(135deg, #0F172A 0%, #334155 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Primary CTA button — the only action-colored button on the page */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #EA580C;
+  color: #FFFFFF;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 1rem 1.75rem;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 4px 12px rgba(234, 88, 12, 0.25);
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.2s ease,
+              background 0.2s ease;
+  cursor: pointer;
+  border: 0;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-primary:hover {
+  background: #C2410C;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.08), 0 8px 20px rgba(234, 88, 12, 0.32);
+}
+.btn-primary:active { transform: translateY(0); }
+
+.btn-primary-lg {
+  font-size: 1.125rem;
+  padding: 1.125rem 2rem;
+}
+
+/* Secondary link-style button (never competes with primary) */
+.btn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: #475569;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+  text-decoration: none;
+}
+.btn-link:hover {
+  color: #0F172A;
+  border-bottom-color: #0F172A;
+}
+
+/* Reveal utility — fade in from below when element enters viewport */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Section divider rule */
+.divider-hairline {
+  width: 48px;
+  height: 2px;
+  background: #0F172A;
+}

@@ -15,15 +15,13 @@ export const CalPopupButton: React.FC<CalPopupButtonProps> = ({
   calLink,
   children,
   className = '',
-  config = { theme: 'dark' }
+  config = { theme: 'light' }
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
-  // Use shared Cal.com configuration hook
-  useCalConfig(config.theme || 'dark');
+  useCalConfig((config.theme || 'light') as 'light' | 'dark' | 'auto');
 
-  // Simple timeout to hide loading state after Cal.com initialization
   React.useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -31,7 +29,6 @@ export const CalPopupButton: React.FC<CalPopupButtonProps> = ({
     return () => clearTimeout(timer);
   }, []);
 
-  // If Cal.com fails to load, fallback to direct link
   if (hasError) {
     return (
       <a
@@ -48,7 +45,7 @@ export const CalPopupButton: React.FC<CalPopupButtonProps> = ({
   return (
     <button
       data-cal-link={calLink}
-      data-cal-config='{"theme":"dark"}'
+      data-cal-config='{"theme":"light"}'
       className={className}
       disabled={isLoading}
       style={{ opacity: isLoading ? 0.7 : 1 }}

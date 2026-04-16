@@ -9,6 +9,3 @@ Disallow: /api/
 
 # Sitemap location
 Sitemap: https://vandeeaisolutions.com/sitemap.xml
-
-# Crawl-delay (optional, helps prevent server overload)
-Crawl-delay: 1
