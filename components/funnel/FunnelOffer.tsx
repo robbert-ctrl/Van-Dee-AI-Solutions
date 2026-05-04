@@ -131,27 +131,27 @@ export const FunnelOffer: React.FC<{ onCtaClick: () => void }> = ({ onCtaClick }
             <ul className="space-y-2 mb-6 text-sm text-[color:var(--color-ink-500)]">
               <li className="flex items-start gap-2">
                 <span className="text-[color:var(--color-primary-600)] mt-0.5">→</span>
-                Scoring-systeem voor 40+ populaire tools
+                6 werkbladen — kant-en-klaar ingevuld als voorbeeld
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-[color:var(--color-primary-600)] mt-0.5">→</span>
-                ROI-template per proces
+                Automatische ROI Calculator — zie je besparing direct
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-[color:var(--color-primary-600)] mt-0.5">→</span>
-                Gap-analyse met AI-tool suggesties
+                Geprioriteerd actieplan: waar begin je vandaag?
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-[color:var(--color-primary-600)] mt-0.5">→</span>
-                Excel + Google Sheets compatibel
+                Werkt in Excel én Google Sheets
               </li>
             </ul>
 
             <a
-              href="/tools/tech-stack-audit.csv"
-              download="tech-stack-audit-van-dee.csv"
-              onClick={() => trackEvent({ name: 'download', location: 'offer', meta: { file: 'tech-stack-audit.csv' } })}
-              aria-label="Download Tech Stack Audit spreadsheet (CSV bestand)"
+              href="/tools/tech-stack-audit.xlsx"
+              download="tech-stack-audit-van-dee.xlsx"
+              onClick={() => trackEvent({ name: 'download', location: 'offer', meta: { file: 'tech-stack-audit.xlsx' } })}
+              aria-label="Download Tech Stack Audit spreadsheet (Excel bestand)"
               className="mt-auto inline-flex items-center gap-2 text-[color:var(--color-primary-600)] hover:text-[color:var(--color-primary-700)] font-semibold text-sm group transition-colors"
             >
               <Download size={16} strokeWidth={2.25} className="group-hover:translate-y-0.5 transition-transform" />
