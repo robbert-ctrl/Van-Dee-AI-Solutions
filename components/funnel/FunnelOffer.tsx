@@ -92,11 +92,35 @@ export const FunnelOffer: React.FC<{ onCtaClick: () => void }> = ({ onCtaClick }
               ))}
             </ul>
 
+            {/* Price floor band — qualifies leads on price */}
             <div className="pt-6 border-t border-[color:var(--color-line)]">
-              <p className="text-sm italic text-[color:var(--color-ink-500)] leading-relaxed">
-                <span className="font-medium not-italic text-[color:var(--color-navy-900)]">Investering op maat</span> —
-                afhankelijk van scope. Tijdens het gratis strategiegesprek bepalen we samen wat reëel is voor jouw bedrijf.
-              </p>
+              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+                <div>
+                  <p className="text-xs font-medium uppercase tracking-[0.14em] text-[color:var(--color-ink-400)] mb-1.5">
+                    Investering
+                  </p>
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="font-display text-base text-[color:var(--color-ink-500)]">
+                      vanaf
+                    </span>
+                    <span
+                      className="font-display text-4xl md:text-5xl font-semibold tracking-tight"
+                      style={{ color: 'var(--color-navy-900)', fontVariantNumeric: 'tabular-nums' }}
+                    >
+                      €3.000
+                    </span>
+                  </div>
+                  <p className="text-xs text-[color:var(--color-ink-400)] mt-1.5 italic">
+                    Typisch €3.000–€15.000, afhankelijk van scope
+                  </p>
+                </div>
+                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[color:var(--color-cream-100)] border border-[color:var(--color-line)] self-start sm:self-end">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--color-emerald-600)]" />
+                  <span className="text-xs font-medium text-[color:var(--color-ink-500)]">
+                    Vaste prijs vooraf · Geen aanbetaling
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 
